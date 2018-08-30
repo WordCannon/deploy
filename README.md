@@ -1,3 +1,6 @@
+<center><img src="https://user-images.githubusercontent.com/1438478/44830275-d41f3980-abd5-11e8-91a4-fa088c197c25.png"></center>
+
+
 # deploy
 
 Deployment Manifest for WordCannon Stack using docker-compose.
