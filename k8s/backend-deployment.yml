@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: wordcannon-backend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wordcannon-backend
+        tier: backend
+    spec:
+      containers:
+      - name: app
+        image: wordcannon/service
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
