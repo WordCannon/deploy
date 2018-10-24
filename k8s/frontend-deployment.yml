@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: wordcannon-frontend
+  namespace: production
 spec:
   replicas: 1
   template:

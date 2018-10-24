@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: frontend
+  namespace: production
 spec:
   selector:
     app: wordcannon-frontend
@@ -10,5 +11,5 @@ spec:
   - port: 8888
     targetPort: 8888
     protocol: TCP
-  type: NodePort
+  type: LoadBalancer
   

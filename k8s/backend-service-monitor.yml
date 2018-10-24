@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: app
+  labels:
+    tier: backend
+spec:
+  selector:
+    matchLabels:
+      app: app
+  endpoints:
+  - port: "8080"

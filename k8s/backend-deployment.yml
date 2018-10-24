@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: wordcannon-backend
+  namespace: production
 spec:
   replicas: 1
   template:
@@ -16,3 +17,6 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+      env:
+      - name: WORDCANNON_LANGUAGE
+        value: "en_US"
