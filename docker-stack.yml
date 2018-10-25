@@ -1,8 +1,16 @@
-version: '3'
+version: '3.4'
 
 services:
   app:
-    image: wordcannon/service  
+    image: wordcannon/service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/word"]
+      interval: 2s
+      timeout: 10s
+      retries: 1
+      start_period: 5s
+    environment:
+      VOWEL_TRIGGER_COUNT: 7
   web:
     image: wordcannon/web    
     ports:
