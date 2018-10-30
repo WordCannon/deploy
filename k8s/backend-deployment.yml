@@ -1,10 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wordcannon-backend
   namespace: production
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: wordcannon-backend  
   template:
     metadata:
       labels:
@@ -16,7 +19,7 @@ spec:
         image: wordcannon/service
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
-      env:
-      - name: WORDCANNON_LANGUAGE
-        value: "en_US"
+            - containerPort: 8080
+        envFrom:
+          - configMapRef:
+              name: wordcannon-data-v5

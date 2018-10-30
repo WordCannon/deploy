@@ -1,17 +1,25 @@
 version: '3.4'
 
+networks:
+  wordcannon-net:
+  core-infra:
+    external: true
+
 services:
   app:
     image: wordcannon/service
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/word"]
-      interval: 2s
-      timeout: 10s
-      retries: 1
-      start_period: 5s
+    networks:
+      - wordcannon-net
+      - core-infra
     environment:
-      VOWEL_TRIGGER_COUNT: 7
+      LANGUAGE: english
+      NUM_WORDS: 10000
+      VOWEL_TRIGGER_COUNT: 5
   web:
-    image: wordcannon/web    
+    image: wordcannon/web
+    depends_on:
+      - app
+    networks:
+      - wordcannon-net        
     ports:
         - 80:8888    
