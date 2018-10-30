@@ -23,7 +23,31 @@ On Linux, you must also [separately install](https://docs.docker.com/compose/ins
 
 Install [Docker for Windows](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe)
 
-# Usage
+# Configuring
+
+The `docker-stack.yml` file exposes the following environment variables:
+
+## `LANGUAGE`
+
+Which language the words come from.  Default `english`
+
+## `NUM_WORDS`
+
+An integer `n` meaning `n most common` words in the dictionary.  Default `10000`
+
+## VOWEL_TRIGGER_COUNT
+
+An integer `n` whereby if `n` vowels appear in the word, some special backend behavior is changed.  We suspect there may be a bug in this area as it appears to lead to crashes.
+
+# Operating
+
+## Environment Setup
+
+1. On the host you want to deploy to (could be your local workstation) initialize Docker Swarm:
+
+```
+docker swarm init
+```
 
 1. Clone the repo
 
@@ -32,38 +56,63 @@ git clone https://github.com/WordCannon/deploy.git
 cd deploy
 ```
 
-2. Run the stack
-
-As a foreground process:
+## Running the Stack
 
 ```
-docker-compose up
+docker stack deploy -c docker-stack.yml wordcannon
 ```
 
-As a background process:
+You should see output like this:
 
 ```
-docker-compose up -d
+Creating network wordcannon_default
+Creating service wordcannon_app
+Creating service wordcannon_web
 ```
 
-3. Tear down
-
-If running in the foreground:
-
-```
-CTRL-C
-```
-
-If running in the background:
-
-```
-docker-compose down
-```
-
-3. Accessing the UI
+## Accessing the UI
 
 The the web container binds to port 80 on the host by default.  
 
 Visit [http://localhost](http://localhost)
 
-You can change this by modifying the number `80` in the `80:8080` part of the `docker-compose.yml` file.
+You can change this by modifying the number `80` in the `80:8080` part of the `docker-stack.yml` file.
+
+## Viewing logs
+
+Backend:
+
+```
+docker service logs --follow wordcannon_app
+```
+
+Frontend:
+
+```
+docker service logs --follow wordcannon_web
+```
+
+## Restarting the backend
+
+If the UI starts showing dots `...` instead of words, the backend may need to be restarted due to a bug.  You can also see this in the backend logs  Running the following command will force a redeploy, which will restart the backend container:
+
+```
+docker service update --force wordcannon_app
+```
+
+## Redeploying
+
+If you make a change to `docker-stack.yml` you can redeploy it using the same command you used to bring up the stack:
+
+```
+docker stack deploy -c docker-stack.yml wordcannon
+```
+
+This will only redeploy services which had changes to their associated configuration the the yaml.
+
+## Teardown
+
+docker stack rm wordcannon
+```
+
+## 
