@@ -35,7 +35,7 @@ Which language the words come from.  Default `english`
 
 An integer `n` meaning `n most common` words in the dictionary.  Default `10000`
 
-## VOWEL_TRIGGER_COUNT
+## `VOWEL_TRIGGER_COUNT`
 
 An integer `n` whereby if `n` vowels appear in the word, some special backend behavior is changed.  We suspect there may be a bug in this area as it appears to lead to crashes.
 
