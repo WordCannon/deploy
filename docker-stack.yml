@@ -1,25 +1,13 @@
 version: '3.4'
 
-networks:
-  wordcannon-net:
-  core-infra:
-    external: true
-
 services:
   app:
     image: wordcannon/service
-    networks:
-      - wordcannon-net
-      - core-infra
     environment:
       LANGUAGE: english
       NUM_WORDS: 10000
-      VOWEL_TRIGGER_COUNT: 5
+      VOWEL_TRIGGER_COUNT: 4
   web:
     image: wordcannon/web
-    depends_on:
-      - app
-    networks:
-      - wordcannon-net        
     ports:
         - 80:8888    
