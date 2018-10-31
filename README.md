@@ -18,7 +18,6 @@ $ curl -fsSL get.docker.com -o get-docker.sh
 $ sh get-docker.sh
 ```
 
-On Linux, you must also [separately install](https://docs.docker.com/compose/install/) `docker-compose`.  
 ## Windows
 
 Install [Docker for Windows](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe)
