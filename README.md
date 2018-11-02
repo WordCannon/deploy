@@ -18,7 +18,6 @@ $ curl -fsSL get.docker.com -o get-docker.sh
 $ sh get-docker.sh
 ```
 
-On Linux, you must also [separately install](https://docs.docker.com/compose/install/) `docker-compose`.  
 ## Windows
 
 Install [Docker for Windows](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe)
@@ -29,7 +28,7 @@ The `docker-stack.yml` file exposes the following environment variables:
 
 ## `LANGUAGE`
 
-Which language the words come from.  Default `english`
+Which language the words come from.  Default `english`.  See: [list of supported languages](https://github.com/WordCannon/service#supported-languages)
 
 ## `NUM_WORDS`
 
@@ -37,7 +36,7 @@ An integer `n` meaning `n most common` words in the dictionary.  Default `10000`
 
 ## `VOWEL_TRIGGER_COUNT`
 
-An integer `n` whereby if `n` vowels appear in the word, some special backend behavior is changed.  We suspect there may be a bug in this area as it appears to lead to crashes.
+An integer `n` whereby if `n` vowels appear in the word, some special backend behavior is triggered.  We suspect there may be a bug in this area as it appears to lead to crashes.
 
 # Operating
 
