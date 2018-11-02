@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: wordcannon-data-v5
+  name: wordcannon-data-v8
   namespace: production
 data:
-  LANGUAGE: "spanish"
-  NUM_WORDS: "100"
+  LANGUAGE: "english"
+  NUM_WORDS: "10000"
   VOWEL_TRIGGER_COUNT: "6"

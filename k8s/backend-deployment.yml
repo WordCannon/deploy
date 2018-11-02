@@ -18,8 +18,14 @@ spec:
       - name: app
         image: wordcannon/service
         imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /word
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 5
         ports:
             - containerPort: 8080
         envFrom:
           - configMapRef:
-              name: wordcannon-data-v5
+              name: wordcannon-data-v8
