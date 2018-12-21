@@ -9,7 +9,4 @@ spec:
     tier: frontend
   ports:
   - port: 8888
-    targetPort: 8888
-    protocol: TCP
-  type: NodePort
-  
+    name: http
