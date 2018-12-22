@@ -17,7 +17,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: wordcannon
+  name: frontend
   namespace: production
 spec:
   hosts:
@@ -27,9 +27,57 @@ spec:
   http:
   - match:
     - uri:
-        exact: /wordcannon
+        prefix: /
     route:
     - destination:
         host: frontend
         port:
           number: 8888
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: word
+spec:
+  hosts:
+  - word
+  http:
+  - route:
+    - destination:
+        host: word
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: dictionary
+spec:
+  hosts:
+  - dictionary
+  http:
+  - route:
+    - destination:
+        host: dictionary
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: punctuation
+spec:
+  hosts:
+  - punctuation
+  http:
+  - route:
+    - destination:
+        host: punctuation
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: fancy
+spec:
+  hosts:
+  - fancy
+  http:
+  - route:
+    - destination:
+        host: fancy

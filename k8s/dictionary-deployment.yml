@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dictionary
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dictionary
+  template:
+    metadata:
+      labels:
+        app: dictionary
+        tier: backend
+    spec:
+      containers:
+      - name: dictionary
+        image: wordcannon/dictionary
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 5
+        ports:
+            - containerPort: 8080

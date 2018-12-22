@@ -1,11 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: word
   namespace: production
 spec:
   selector:
-    app: frontend
+    app: word
+    tier: backend
   ports:
-  - port: 8888
+  - protocol: TCP
+    port: 8080
     name: http

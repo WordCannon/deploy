@@ -1,31 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wordcannon-backend
+  name: word
   namespace: production
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wordcannon-backend  
+      app: word
   template:
     metadata:
       labels:
-        app: wordcannon-backend
+        app: word
         tier: backend
     spec:
       containers:
       - name: app
-        image: wordcannon/service
+        image: wordcannon/word
         imagePullPolicy: Always
-        livenessProbe:
-          httpGet:
-            path: /word
-            port: 8080
-          initialDelaySeconds: 3
-          periodSeconds: 5
         ports:
             - containerPort: 8080
         envFrom:
           - configMapRef:
-              name: wordcannon-data-v8
+              name: wordcannon-data-v9
