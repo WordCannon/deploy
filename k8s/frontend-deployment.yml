@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: wordcannon-frontend
-  namespace: production
+  namespace: wordcannon
 spec:
   replicas: 1
   template:
@@ -12,8 +12,8 @@ spec:
         tier: frontend
     spec:
       containers:
-      - name: web
-        image: wordcannon/web
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8888
+        - name: web
+          image: wordcannon/web
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8888

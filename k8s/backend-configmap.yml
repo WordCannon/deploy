@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: wordcannon-data-v8
-  namespace: production
+  namespace: wordcannon
 data:
   LANGUAGE: "english"
   NUM_WORDS: "10000"
