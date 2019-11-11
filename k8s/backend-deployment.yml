@@ -1,31 +1,54 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wordcannon-backend
+  name: backend-deployment
   namespace: wordcannon
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: "25%"
+      maxUnavailable: "25%"
   selector:
     matchLabels:
-      app: wordcannon-backend
+      app: word-generator-app
   template:
     metadata:
       labels:
-        app: wordcannon-backend
-        tier: backend
+        app: word-generator-app
     spec:
       containers:
-        - name: app
-          image: wordcannon/service
-          imagePullPolicy: Always
-          livenessProbe:
-            httpGet:
-              path: /word
-              port: 8080
-            initialDelaySeconds: 3
-            periodSeconds: 5
+        - name: word-generator-container
+          image: wordcannon/word-generator:0.0.11
           ports:
             - containerPort: 8080
-          envFrom:
-            - configMapRef:
-                name: wordcannon-data-v8
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            periodSeconds: 1
+            successThreshold: 1
+            timeoutSeconds: 2
+          env:
+            - name: LANGUAGE
+              value: "english"
+            - name: NUM_WORDS
+              value: "500"
+            - name: FAILURE_RATE
+              value: "0"
+            - name: MIN_LATENCY
+              value: "2"
+            - name: MAX_LATENCY
+              value: "48"
+            - name: SKEW
+              value: "1"
+            - name: SHUTDOWN_GRACE_PERIOD
+              value: "3"
+          resources:
+            limits:
+              cpu: 200m
+              memory: 80Mi
+            requests:
+              cpu: 100m
+              memory: 50Mi

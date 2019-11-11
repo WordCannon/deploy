@@ -1,19 +1,36 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wordcannon-frontend
+  name: frontend-deployment
   namespace: wordcannon
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: "25%"
+  selector:
+    matchLabels:
+      app: frontend-app
   template:
     metadata:
       labels:
-        app: wordcannon-frontend
-        tier: frontend
+        app: frontend-app
     spec:
       containers:
-        - name: web
-          image: wordcannon/web
-          imagePullPolicy: Always
+        - name: frontend-container
+          image: wordcannon/web:0.0.41
           ports:
             - containerPort: 8888
+          env:
+            - name: WORD_SERVICE_URL
+              value: "http://word-generator-service:32789/word"
+            - name: WORD_SERVICE_TIMEOUT
+              value: "10000"
+          resources:
+            limits:
+              cpu: 200m
+              memory: 50Mi
+            requests:
+              cpu: 100m
+              memory: 30Mi

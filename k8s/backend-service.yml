@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: app
+  name: word-generator-service
   namespace: wordcannon
 spec:
   selector:
-    app: wordcannon-backend
-    tier: backend
+    app: word-generator-app
   ports:
     - protocol: TCP
-      port: 8080
+      port: 32789
       targetPort: 8080
+  type: LoadBalancer
