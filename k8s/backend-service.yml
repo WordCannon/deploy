@@ -8,6 +8,6 @@ spec:
     app: word-generator-app
   ports:
     - protocol: TCP
-      port: 32789
+      port: 6000
       targetPort: 8080
   type: LoadBalancer
