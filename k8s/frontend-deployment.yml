@@ -24,7 +24,7 @@ spec:
             - containerPort: 8888
           env:
             - name: WORD_SERVICE_URL
-              value: "http://word-generator-service:6000/word"
+              value: "http://word-generator-service:8000/word"
             - name: WORD_SERVICE_TIMEOUT
               value: "10000"
           resources:
