@@ -4,7 +4,7 @@ metadata:
   name: frontend-deployment
   namespace: wordcannon
 spec:
-  replicas: 1
+  replicas: 3
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -14,6 +14,8 @@ spec:
       app: frontend-app
   template:
     metadata:
+      annotations:
+        linkerd.io/inject: enabled
       labels:
         app: frontend-app
     spec:
@@ -24,7 +26,7 @@ spec:
             - containerPort: 8888
           env:
             - name: WORD_SERVICE_URL
-              value: "http://word-generator-service:8000/word"
+              value: "http://word-generator-service:6000/word"
             - name: WORD_SERVICE_TIMEOUT
               value: "3000"
           resources:
